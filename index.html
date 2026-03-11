@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>Transition Protocol</title>
+    <style>
+        :root { --bg: #ffffff; --text: #1a1a1a; --accent: #c62828; --box-bg: #f9f9f9; }
+        body { font-family: -apple-system, sans-serif; line-height: 1.5; max-width: 600px; margin: 0 auto; padding: 20px; background: var(--bg); color: var(--text); }
+        .lang-control { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        button { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 8px; font-weight: bold; }
+        button.active { background: var(--text); color: #fff; border-color: var(--text); }
+        .hidden { display: none; }
+        h1 { color: var(--accent); margin-top: 0; font-size: 1.6rem; }
+        .phase { background: var(--box-bg); border-left: 4px solid var(--accent); padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
+        .signal-box { background: #fff; border: 1px dashed #999; padding: 10px; margin-top: 10px; font-weight: bold; text-align: center; }
+        footer { margin-top: 40px; font-size: 0.8rem; color: #777; text-align: center; }
+        [dir="rtl"] { text-align: right; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-control">
+        <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+        <button id="btn-fa" onclick="setLang('fa')">فارسی</button>
+    </div>
+
+    <div id="content-en">
+        <h1>Transition Protocol</h1>
+        <p>Peaceful local coordination during force withdrawal.</p>
+        <div class="phase">
+            <h3>1. The Silent Vote</h3>
+            <p>Place a plain white sheet on your roof or courtyard. This signals intent safely to satellites.</p>
+            <div class="signal-box">SIGNAL: WHITE SQUARE</div>
+        </div>
+        <div class="phase">
+            <h3>2. The Town Square</h3>
+            <p>At High Noon on the first Friday after bombing pauses, form a large circle in the town center.</p>
+            <div class="signal-box">SIGNAL: THE CIRCLE</div>
+        </div>
+        <div class="phase">
+            <h3>3. Security Transition</h3>
+            <p>Police/Military: If you stand with the town, form an 'X' inside the circle.</p>
+            <div class="signal-box">SIGNAL: CIRCLE + X</div>
+        </div>
+    </div>
+
+    <div id="content-fa" class="hidden" dir="rtl">
+        <h1>پروتکل انتقال</h1>
+        <p>هماهنگی صلح‌آمیز محلی در زمان خروج نیروها.</p>
+        <div class="phase">
+            <h3>۱. رای خاموش</h3>
+            <p>یک ملحفه سفید ساده روی پشت‌بام قرار دهید. این پیام را به صورت ایمن به ماهواره‌ها می‌رساند.</p>
+            <div class="signal-box">سیگنال: مربع سفید</div>
+        </div>
+        <div class="phase">
+            <h3>۲. میدان شهر</h3>
+            <p>ظهر اولین جمعه پس از توقف حملات، یک حلقه بزرگ در مرکز شهر تشکیل دهید.</p>
+            <div class="signal-box">سیگنال: حلقه</div>
+        </div>
+        <div class="phase">
+            <h3>۳. انتقال امنیت</h3>
+            <p>پلیس و ارتش: اگر با مردم هستید، یک علامت X در داخل حلقه ایجاد کنید.</p>
+            <div class="signal-box">سیگنال: حلقه + X</div>
+        </div>
+    </div>
+
+    <footer>
+        Site works offline. Share via Bluetooth/SMS.
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            const isEn = lang === 'en';
+            document.getElementById('content-en').classList.toggle('hidden', !isEn);
+            document.getElementById('content-fa').classList.toggle('hidden', isEn);
+            document.getElementById('btn-en').classList.toggle('active', isEn);
+            document.getElementById('btn-fa').classList.toggle('active', !isEn);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
+</body>
+</html>

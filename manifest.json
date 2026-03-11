@@ -1,0 +1,9 @@
+{
+  "short_name": "Protocol",
+  "name": "Transition Protocol",
+  "icons": [],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#c62828",
+  "background_color": "#ffffff"
+}
