@@ -1,4 +1,4 @@
-var CACHE_NAME = 'transition-v3';
+var CACHE_NAME = 'transition-v4';
 var ASSETS = [
   './',
   './index.html',

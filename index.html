@@ -4,43 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
-    <title>پروتکل انتقال — Transition Protocol</title>
+    <title>پروتکل انتقال ایران — Iran Transition Protocol</title>
     <style>
         :root { --bg: #ffffff; --text: #1a1a1a; --accent: #c62828; --box-bg: #f9f9f9; --border: #eee; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif; line-height: 1.7; max-width: 640px; margin: 0 auto; padding: 20px; background: var(--bg); color: var(--text); }
 
-        .lang-select { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
+        .lang-select { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
         .lang-select label { font-weight: bold; font-size: 0.9rem; }
         .lang-select select { padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; background: #fff; cursor: pointer; flex: 1; max-width: 260px; }
 
-        h1 { color: var(--accent); margin-bottom: 8px; font-size: 1.6rem; }
-        .subtitle { margin-bottom: 24px; color: #555; }
+        h1 { color: var(--accent); margin-bottom: 4px; font-size: 1.5rem; }
+        .subtitle { margin-bottom: 16px; color: #555; }
 
-        .phase { background: var(--box-bg); border-left: 4px solid var(--accent); padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
-        [dir="rtl"] .phase { border-left: none; border-right: 4px solid var(--accent); border-radius: 8px 0 0 8px; }
-        .phase h3 { margin-bottom: 6px; }
-        .signal-box { background: #fff; border: 1px dashed #999; padding: 10px; margin-top: 10px; font-weight: bold; text-align: center; letter-spacing: 0.5px; }
+        .timeline-banner { background: #e3f2fd; border: 2px solid #1565c0; padding: 12px; margin-bottom: 18px; border-radius: 8px; text-align: center; }
+        .timeline-banner .tl-title { font-weight: bold; color: #0d47a1; margin-bottom: 4px; }
+        .timeline-banner .tl-detail { font-size: 0.9rem; color: #1565c0; }
 
-        .date-box { background: #e3f2fd; border: 2px solid #1565c0; padding: 14px; margin-top: 12px; border-radius: 8px; text-align: center; }
-        .date-box .date-label { font-size: 0.85rem; color: #1565c0; font-weight: bold; margin-bottom: 4px; }
-        .date-box .date-value { font-size: 1.3rem; font-weight: bold; color: #0d47a1; }
+        .date-box { background: #e3f2fd; border: 2px solid #1565c0; padding: 10px; margin-top: 10px; border-radius: 8px; text-align: center; }
+        .date-box .date-label { font-size: 0.8rem; color: #1565c0; font-weight: bold; margin-bottom: 2px; }
+        .date-box .date-value { font-size: 1.2rem; font-weight: bold; color: #0d47a1; }
         .date-box.pending { background: #fff3e0; border-color: #e65100; }
         .date-box.pending .date-label { color: #e65100; }
-        .date-box.pending .date-value { color: #bf360c; font-size: 1.1rem; }
+        .date-box.pending .date-value { color: #bf360c; font-size: 1rem; }
 
-        .safety { background: #fff8e1; border: 1px solid #ffe082; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-        .safety h3 { color: #f57f17; margin-bottom: 6px; }
+        .phase { background: var(--box-bg); border-left: 4px solid var(--accent); padding: 12px; margin-bottom: 14px; border-radius: 0 8px 8px 0; }
+        [dir="rtl"] .phase { border-left: none; border-right: 4px solid var(--accent); border-radius: 8px 0 0 8px; }
+        .phase h3 { margin-bottom: 4px; font-size: 1rem; }
+        .phase p { font-size: 0.92rem; }
+        .signal-box { background: #fff; border: 1px dashed #999; padding: 8px; margin-top: 8px; font-weight: bold; text-align: center; font-size: 0.9rem; }
 
-        footer { margin-top: 40px; font-size: 0.8rem; color: #777; text-align: center; }
+        .safety { background: #fff8e1; border: 1px solid #ffe082; padding: 12px; margin-bottom: 14px; border-radius: 8px; }
+        .safety h3 { color: #f57f17; margin-bottom: 4px; font-size: 1rem; }
+        .safety p { font-size: 0.92rem; }
+
+        footer { margin-top: 20px; font-size: 0.78rem; color: #777; text-align: center; }
 
         @media print {
             .lang-select { display: none; }
-            body { max-width: 100%; padding: 10px; font-size: 12pt; line-height: 1.5; }
-            .phase, .safety { break-inside: avoid; border: 1px solid #999; }
-            .date-box { border: 2px solid #000; }
+            body { max-width: 100%; padding: 8px; font-size: 10pt; line-height: 1.35; }
+            h1 { font-size: 14pt; margin-bottom: 2px; }
+            .subtitle { margin-bottom: 8px; font-size: 9pt; }
+            .timeline-banner { padding: 6px; margin-bottom: 8px; }
+            .timeline-banner .tl-title { font-size: 10pt; }
+            .timeline-banner .tl-detail { font-size: 8pt; }
+            .phase { padding: 6px; margin-bottom: 6px; break-inside: avoid; }
+            .phase h3 { font-size: 10pt; margin-bottom: 2px; }
+            .phase p { font-size: 9pt; }
+            .signal-box { padding: 4px; margin-top: 4px; font-size: 9pt; }
+            .date-box { padding: 4px; margin-top: 4px; }
+            .date-box .date-label { font-size: 7pt; }
+            .date-box .date-value { font-size: 10pt; }
             .date-box.pending { border-style: dashed; }
-            footer { margin-top: 20px; }
+            .safety { padding: 6px; margin-bottom: 6px; break-inside: avoid; }
+            .safety h3 { font-size: 10pt; }
+            .safety p { font-size: 9pt; }
+            footer { margin-top: 8px; font-size: 7pt; }
         }
     </style>
 </head>
@@ -65,121 +84,142 @@
         // ============================================================
         // EDIT THESE TO SET THE GO-TIMES. Leave empty string '' for
         // "to be announced". Use Iran Standard Time (IRST, UTC+3:30).
-        // Format: 'YYYY-MM-DD HH:MM' (24h) or any readable string.
+        // Format: any readable string, e.g. '25 March 2026, 06:00 IRST'
+        // When set, the date boxes turn blue. Until then, orange "TBA".
         // ============================================================
-        var PHASE1_DATE = '';   // e.g. '2026-03-25 06:00'
-        var PHASE2_DATE = '';   // e.g. '2026-04-01 12:00'
+        var PHASE1_DATE = '';   // e.g. '۲۵ فروردین ۱۴۰۵ — ساعت ۶ صبح'
+        var PHASE2_DATE = '';   // e.g. '۱ اردیبهشت ۱۴۰۵ — ظهر'
 
         var T = {
             fa: {
                 dir: 'rtl',
                 langLabel: 'زبان:',
-                title: 'پروتکل انتقال',
-                subtitle: 'هماهنگی صلح‌آمیز محلی در زمان تغییر.',
+                title: 'پروتکل انتقال ایران',
+                subtitle: 'برای مردم ایران. هماهنگی صلح‌آمیز برای تغییر.',
+                tlTitle: 'زمان‌بندی: فاز ۱ در اواخر فروردین ۱۴۰۵ (~اواخر مارس ۲۰۲۶). فاز ۲ یک هفته بعد.',
+                tlDetail: 'تاریخ دقیق چند روز قبل در همین صفحه اعلام می‌شود. این صفحه را ذخیره کنید.',
                 phase1Title: '۱. رأی خاموش',
-                phase1Text: 'یک ملحفه سفید ساده (حداقل ۲ در ۲ متر) را در یک فضای باز دور از خانه‌ها پهن کنید — زمین کشاورزی، زمین خالی، یا هر مکان بازی. ملحفه را صاف روی زمین بگذارید. این پیام شما را به صورت ناشناس از طریق تصاویر ماهواره‌ای می‌رساند بدون اینکه به محل زندگی شما مرتبط شود.',
+                phase1Desc: 'وقتی تاریخ اعلام شد، این کار را انجام دهید:',
+                phase1Text: 'یک ملحفه سفید ساده (حداقل ۲ در ۲ متر) را در یک فضای باز دور از خانه‌ها پهن کنید — زمین کشاورزی، زمین خالی، یا هر مکان بازی. صاف روی زمین. این پیام شما را به صورت ناشناس از طریق تصاویر ماهواره‌ای می‌رساند بدون اینکه به محل زندگی شما مرتبط شود. اگر هوا ابری است، اولین روز آفتابی بعد از تاریخ اعلام‌شده اقدام کنید.',
                 phase1Signal: 'سیگنال: مربع سفید در فضای باز',
-                phase1DateLabel: 'زمان فاز ۱:',
+                phase1DateLabel: 'تاریخ فاز ۱:',
                 phase1Pending: 'به‌زودی اعلام می‌شود — این صفحه را بررسی کنید',
                 phase2Title: '۲. میدان شهر',
+                phase2Desc: 'یک هفته پس از فاز ۱:',
                 phase2Text: 'یک حلقه بزرگ انسانی در مرکز شهر یا میدان اصلی تشکیل دهید. این نشان‌دهنده اجماع جمعی و خواست تغییر صلح‌آمیز است.',
-                phase2Signal: 'سیگنال: حلقه انسانی',
-                phase2DateLabel: 'زمان فاز ۲:',
-                phase2Pending: 'به‌زودی اعلام می‌شود — این صفحه را بررسی کنید',
+                phase2Signal: 'سیگنال: حلقه انسانی در میدان شهر',
+                phase2DateLabel: 'تاریخ فاز ۲:',
+                phase2Pending: 'یک هفته پس از فاز ۱ — تاریخ دقیق اعلام می‌شود',
                 phase3Title: '۳. انتقال امنیت',
-                phase3Text: 'نیروهای امنیتی محلی (پلیس و ارتش): اگر با مردم هستید، یک علامت X از افراد در داخل حلقه تشکیل دهید. این نشان می‌دهد که امنیت محلی از انتقال صلح‌آمیز حمایت می‌کند.',
+                phase3Text: 'نیروهای امنیتی محلی (پلیس و ارتش): اگر با مردم هستید، همان روز فاز ۲ یک علامت X از افراد در داخل حلقه تشکیل دهید.',
                 phase3Signal: 'سیگنال: حلقه + X',
                 safetyTitle: 'نکات ایمنی',
-                safetyText: 'ملحفه را در فضای باز دور از خانه بگذارید تا قابل ردیابی به محل زندگی شما نباشد. فاز ۱ ناشناس و کم‌خطر است. قبل از رفتن به فاز ۲، منتظر شواهد گسترده مشارکت باشید. هرگز به تنهایی اقدام نکنید — قدرت در تعداد است.',
-                footer: 'این سایت آفلاین کار می‌کند. از طریق بلوتوث، اس‌ام‌اس یا پرینت به اشتراک بگذارید.'
+                safetyText: 'ملحفه را در فضای باز دور از خانه بگذارید تا قابل ردیابی نباشد. تا قبل از اعلام تاریخ، اقدامی نکنید — فقط این صفحه را با دیگران به اشتراک بگذارید. قدرت در تعداد است. هرگز به تنهایی اقدام نکنید.',
+                footer: 'این سایت آفلاین کار می‌کند. ذخیره کنید و از طریق بلوتوث، اس‌ام‌اس یا پرینت به اشتراک بگذارید.'
             },
             az: {
                 dir: 'rtl',
                 langLabel: 'دیل:',
-                title: 'کئچید پروتوکولو',
-                subtitle: 'دَییشیکلیک زامانی یئرلی سولح‌آمیز هماهنگلیک.',
+                title: 'ایران کئچید پروتوکولو',
+                subtitle: 'ایران خالقی اوچون. سولح‌آمیز دَییشیکلیک هماهنگلیگی.',
+                tlTitle: 'واخت جدولو: فاز ۱ فروردین ۱۴۰۵ سونلاریندا (~مارس ۲۰۲۶ سونلاری). فاز ۲ بیر هفته سونرا.',
+                tlDetail: 'دقیق تاریخ بیر نئچه گون اؤنجه بو صحیفه‌ده اعلان اولوناجاق. بو صحیفه‌نی ساخلایین.',
                 phase1Title: '۱. ساکیت سس',
-                phase1Text: 'بیر ساده آغ ملحفه‌نی (ان آز ۲ در ۲ متر) ائولردن اوزاق آچیق بیر یئرده — تارلا، بوش تورپاق، یا هر آچیق ساحه‌ده یئره سرین. بو، سیزین مساژینیزی یاشاییش یئرینیزه باغلامادان پئیک تصویرلری ایله گیزلی شکیلده چاتدیرار.',
+                phase1Desc: 'تاریخ اعلان اولوناندا بو ایشی گؤرون:',
+                phase1Text: 'بیر ساده آغ ملحفه‌نی (ان آز ۲ در ۲ متر) ائولردن اوزاق آچیق بیر یئرده یئره سرین — تارلا، بوش تورپاق، یا هر آچیق ساحه. بو، مساژینیزی یاشاییش یئرینیزه باغلامادان پئیک تصویرلری ایله ناشناس چاتدیرار. هاوا بولودلو اولسا، اعلان اولونان تاریخدن سونراکی ایلک آچیق گونده ائدین.',
                 phase1Signal: 'سیگنال: آچیق ساحه‌ده آغ مربع',
-                phase1DateLabel: 'فاز ۱ واختی:',
+                phase1DateLabel: 'فاز ۱ تاریخی:',
                 phase1Pending: 'تزلیکله اعلان اولوناجاق — بو صحیفه‌نی یوخلایین',
                 phase2Title: '۲. شهر میدانی',
+                phase2Desc: 'فاز ۱-دن بیر هفته سونرا:',
                 phase2Text: 'شهر مرکزینده بؤیوک بیر اینسان حلقه‌سی یارادین. بو، کوللکتیو اجماع و سولح‌آمیز دَییشیکلیک ایسته‌یینی گؤسته‌ریر.',
-                phase2Signal: 'سیگنال: اینسان حلقه‌سی',
-                phase2DateLabel: 'فاز ۲ واختی:',
-                phase2Pending: 'تزلیکله اعلان اولوناجاق — بو صحیفه‌نی یوخلایین',
+                phase2Signal: 'سیگنال: شهر میدانیندا اینسان حلقه‌سی',
+                phase2DateLabel: 'فاز ۲ تاریخی:',
+                phase2Pending: 'فاز ۱-دن بیر هفته سونرا — دقیق تاریخ اعلان اولوناجاق',
                 phase3Title: '۳. تحلوکه‌سیزلیک کئچیدی',
-                phase3Text: 'یئرلی تحلوکه‌سیزلیک قوولاری: اگر خالقلا بیرسینیزسه، حلقه‌نین ایچینده X شکلی یارادین.',
+                phase3Text: 'یئرلی تحلوکه‌سیزلیک قوولاری: خالقلا بیرسینیزسه، فاز ۲ گونو حلقه‌نین ایچینده X شکلی یارادین.',
                 phase3Signal: 'سیگنال: حلقه + X',
                 safetyTitle: 'تحلوکه‌سیزلیک',
-                safetyText: 'ملحفه‌نی ائودن اوزاق آچیق یئرده قویون کی یاشاییش یئرینیزه ایز سالینماسین. فاز ۱ گیزلی و آز ریسکلیدیر. فاز ۲-یه کئچمزدن اؤنجه گئنیش ایشتیراک سوبوتلارینی گؤزله‌یین. هئچ واخت تک باشینا حرکت ائتمه‌یین.',
-                footer: 'بو سایت آفلاین ایشله‌ییر. بلوتوث، اس‌ام‌اس و یا چاپ واسیطه‌سیله پایلاشین.'
+                safetyText: 'ملحفه‌نی ائودن اوزاق آچیق یئرده قویون. تاریخ اعلان اولونانادک هئچ بیر اقدام ائتمه‌یین — یالنیز بو صحیفه‌نی پایلاشین. قوه ساییدادیر. هئچ واخت تک باشینا حرکت ائتمه‌یین.',
+                footer: 'بو سایت آفلاین ایشله‌ییر. ساخلایین و بلوتوث، اس‌ام‌اس یا چاپ ایله پایلاشین.'
             },
             ku: {
                 dir: 'rtl',
                 langLabel: 'زمان:',
-                title: 'پڕۆتۆکۆلی گواستنەوە',
-                subtitle: 'هاوئاهەنگی ئاشتیخوازانەی ناوخۆیی لە کاتی گۆڕانکاریدا.',
+                title: 'پڕۆتۆکۆلی گواستنەوەی ئێران',
+                subtitle: 'بۆ گەلی ئێران. هاوئاهەنگی ئاشتیخوازانە بۆ گۆڕانکاری.',
+                tlTitle: 'کاتبەندی: قۆناغی ١ لە کۆتایی فەرواردینی ١٤٠٥ (~کۆتایی مارسی ٢٠٢٦). قۆناغی ٢ یەک هەفتە دواتر.',
+                tlDetail: 'ڕێکەوتی تەواو چەند ڕۆژ پێشتر لە هەمان پەڕەدا ڕادەگەیەنرێت. ئەم پەڕەیە هەڵبگرە.',
                 phase1Title: '١. دەنگی بێدەنگ',
-                phase1Text: 'جێگایەکی سپی ئاسایی (لانیکەم ٢ لە ٢ مەتر) لە شوێنێکی کراوە دوور لە خانوو دابنێ — کێڵگە، زەوی بەتاڵ، یان هەر شوێنی کراوەیەک. ئەم سیگنالە بە شێوەیەکی نەناسراو لە ڕێگەی وێنەی سەتەلایتەوە دەگەیەنرێت بەبێ ئەوەی شوێنی ژیانت بناسرێت.',
+                phase1Desc: 'کاتێک ڕێکەوت ڕاگەیەنرا، ئەمە بکە:',
+                phase1Text: 'جێگایەکی سپی ئاسایی (لانیکەم ٢ لە ٢ مەتر) لە شوێنێکی کراوە دوور لە خانوو دابنێ — کێڵگە، زەوی بەتاڵ، یان هەر شوێنی کراوە. ئەمە پەیامەکەت بە شێوەیەکی نەناسراو لە ڕێگەی وێنەی سەتەلایتەوە دەگەیەنێت بەبێ ئەوەی شوێنی ژیانت بناسرێت. ئەگەر هەوا ھەور بوو، یەکەم ڕۆژی ئاسمان ڕوون دوای ڕێکەوتی ڕاگەیەندراو.',
                 phase1Signal: 'سیگنال: چوارگۆشەی سپی لە شوێنی کراوە',
-                phase1DateLabel: 'کاتی قۆناغی ١:',
+                phase1DateLabel: 'ڕێکەوتی قۆناغی ١:',
                 phase1Pending: 'بەم زووانە ڕادەگەیەنرێت — ئەم پەڕەیە بپشکنە',
                 phase2Title: '٢. مەیدانی شار',
+                phase2Desc: 'یەک هەفتە دوای قۆناغی ١:',
                 phase2Text: 'بازنەیەکی گەورەی مرۆڤی لە ناوەندی شار دروست بکە. ئەمە نیشانەی ڕێکەوتنی کۆمەڵایەتی و خواستی گۆڕانی ئاشتیخوازانەیە.',
-                phase2Signal: 'سیگنال: بازنەی مرۆڤی',
-                phase2DateLabel: 'کاتی قۆناغی ٢:',
-                phase2Pending: 'بەم زووانە ڕادەگەیەنرێت — ئەم پەڕەیە بپشکنە',
+                phase2Signal: 'سیگنال: بازنەی مرۆڤی لە مەیدانی شار',
+                phase2DateLabel: 'ڕێکەوتی قۆناغی ٢:',
+                phase2Pending: 'یەک هەفتە دوای قۆناغی ١ — ڕێکەوتی تەواو ڕادەگەیەنرێت',
                 phase3Title: '٣. گواستنەوەی ئاسایش',
-                phase3Text: 'هێزە ئاسایشیەکانی ناوخۆ: ئەگەر لەگەڵ خەڵکدا وەستاون، شێوەی X لەناو بازنەکەدا دروست بکەن.',
+                phase3Text: 'هێزە ئاسایشیەکانی ناوخۆ: ئەگەر لەگەڵ خەڵکدا وەستاون، ڕۆژی قۆناغی ٢ شێوەی X لەناو بازنەکەدا دروست بکەن.',
                 phase3Signal: 'سیگنال: بازنە + X',
                 safetyTitle: 'ئاسایش',
-                safetyText: 'جێگای سپییەکە لە شوێنێکی کراوە دوور لە ماڵ دابنێ بۆ ئەوەی شوێنت نەدۆزرێتەوە. قۆناغی ١ نەناسراو و کەم مەترسییە. پێش چوونە قۆناغی ٢، چاوەڕوانی بەڵگەی بەشداریی بەرفراوان بکە. هەرگیز بە تەنها مەکە — هێز لە ژمارەدایە.',
-                footer: 'ئەم ماڵپەڕە بەبێ ئینتەرنێت کار دەکات. لە ڕێگەی بلوتوس، نامەی کورت یان چاپکردنەوە ببەخشە.'
+                safetyText: 'جێگای سپییەکە لە شوێنی کراوە دوور لە ماڵ دابنێ. تا ڕێکەوت ڕانەگەیەنرا هیچ مەکە — تەنها ئەم پەڕەیە بڵاوبکەرەوە. هێز لە ژمارەدایە. هەرگیز بە تەنها مەکە.',
+                footer: 'ئەم ماڵپەڕە بەبێ ئینتەرنێت کار دەکات. هەڵیبگرە و لە ڕێگەی بلوتوس، نامەی کورت یان چاپکردنەوە ببەخشە.'
             },
             ar: {
                 dir: 'rtl',
                 langLabel: 'اللغة:',
-                title: 'بروتوكول الانتقال',
-                subtitle: 'تنسيق محلي سلمي في أوقات التغيير.',
+                title: 'بروتوكول انتقال إيران',
+                subtitle: 'لشعب إيران. تنسيق سلمي من أجل التغيير.',
+                tlTitle: 'الجدول الزمني: المرحلة ١ في أواخر فروردين ١٤٠٥ (~أواخر مارس ٢٠٢٦). المرحلة ٢ بعد أسبوع.',
+                tlDetail: 'سيُعلن التاريخ الدقيق قبل أيام قليلة في هذه الصفحة نفسها. احفظوا هذه الصفحة.',
                 phase1Title: '١. التصويت الصامت',
-                phase1Text: 'ضع ملاءة بيضاء بسيطة (٢ × ٢ متر على الأقل) في مكان مفتوح بعيداً عن المنازل — حقل زراعي أو أرض فارغة أو أي مساحة مفتوحة. ضعها مسطّحة على الأرض. هذا يوصل رسالتك بشكل مجهول عبر صور الأقمار الصناعية دون ربطها بمكان سكنك.',
+                phase1Desc: 'عندما يُعلن التاريخ، افعلوا التالي:',
+                phase1Text: 'ضعوا ملاءة بيضاء بسيطة (٢×٢ متر على الأقل) مسطّحة على الأرض في مكان مفتوح بعيداً عن المنازل — حقل أو أرض فارغة أو أي مساحة مفتوحة. هذا يوصل رسالتكم بشكل مجهول عبر صور الأقمار الصناعية دون ربطها بمكان سكنكم. إذا كانت السماء غائمة، انتظروا أول يوم صافٍ بعد التاريخ المعلن.',
                 phase1Signal: 'الإشارة: مربع أبيض في مكان مفتوح',
                 phase1DateLabel: 'موعد المرحلة ١:',
                 phase1Pending: 'سيُعلن قريباً — تابعوا هذه الصفحة',
                 phase2Title: '٢. ساحة المدينة',
+                phase2Desc: 'بعد أسبوع من المرحلة ١:',
                 phase2Text: 'شكّلوا حلقة بشرية كبيرة في وسط المدينة أو الساحة الرئيسية. هذا يُظهر الإجماع الجماعي والرغبة في تغيير سلمي.',
-                phase2Signal: 'الإشارة: حلقة بشرية',
+                phase2Signal: 'الإشارة: حلقة بشرية في ساحة المدينة',
                 phase2DateLabel: 'موعد المرحلة ٢:',
-                phase2Pending: 'سيُعلن قريباً — تابعوا هذه الصفحة',
+                phase2Pending: 'بعد أسبوع من المرحلة ١ — سيُعلن التاريخ الدقيق',
                 phase3Title: '٣. انتقال الأمن',
-                phase3Text: 'قوات الأمن المحلية: إذا كنتم مع الشعب، شكّلوا علامة X داخل الحلقة.',
+                phase3Text: 'قوات الأمن المحلية: إذا كنتم مع الشعب، في يوم المرحلة ٢ شكّلوا علامة X داخل الحلقة.',
                 phase3Signal: 'الإشارة: حلقة + X',
                 safetyTitle: 'ملاحظات السلامة',
-                safetyText: 'ضعوا الملاءة في مكان مفتوح بعيداً عن المنازل حتى لا يمكن تتبعها إلى مكان سكنكم. المرحلة ١ مجهولة وقليلة المخاطر. انتظروا دليلاً على مشاركة واسعة قبل الانتقال للمرحلة ٢. لا تتصرفوا بمفردكم أبداً — القوة في العدد.',
-                footer: 'يعمل هذا الموقع بدون إنترنت. شاركه عبر البلوتوث أو الرسائل القصيرة أو الطباعة.'
+                safetyText: 'ضعوا الملاءة في مكان مفتوح بعيداً عن المنازل. لا تفعلوا شيئاً حتى يُعلن التاريخ — فقط شاركوا هذه الصفحة. القوة في العدد. لا تتصرفوا بمفردكم أبداً.',
+                footer: 'يعمل بدون إنترنت. احفظوه وشاركوه عبر البلوتوث أو الرسائل القصيرة أو الطباعة.'
             },
             en: {
                 dir: 'ltr',
                 langLabel: 'Language:',
-                title: 'Transition Protocol',
-                subtitle: 'Peaceful local coordination during times of change.',
+                title: 'Iran Transition Protocol',
+                subtitle: 'For the people of Iran. Peaceful coordination for change.',
+                tlTitle: 'Timeline: Phase 1 in late Farvardin 1405 (~late March 2026). Phase 2 one week later.',
+                tlDetail: 'Exact date will be announced on this page a few days beforehand. Save this page.',
                 phase1Title: '1. The Silent Vote',
-                phase1Text: 'Lay a plain white sheet (at least 2m x 2m) flat on the ground in an open area away from homes — a field, empty lot, or any open space. This signals your intent anonymously via satellite imagery without being traceable to where you live.',
+                phase1Desc: 'When the date is announced, do the following:',
+                phase1Text: 'Lay a plain white sheet (at least 2m x 2m) flat on the ground in an open area away from homes — a field, empty lot, or any open space. This signals your intent anonymously via satellite imagery without being traceable to where you live. If the sky is overcast, use the first clear day after the announced date.',
                 phase1Signal: 'SIGNAL: WHITE SQUARE IN OPEN AREA',
                 phase1DateLabel: 'Phase 1 date:',
                 phase1Pending: 'To be announced soon — check back here',
                 phase2Title: '2. The Town Square',
+                phase2Desc: 'One week after Phase 1:',
                 phase2Text: 'Form a large human circle in the town center or main square. This demonstrates collective consensus and the desire for peaceful change.',
-                phase2Signal: 'SIGNAL: HUMAN CIRCLE',
+                phase2Signal: 'SIGNAL: HUMAN CIRCLE IN TOWN SQUARE',
                 phase2DateLabel: 'Phase 2 date:',
-                phase2Pending: 'To be announced soon — check back here',
+                phase2Pending: 'One week after Phase 1 — exact date to be announced',
                 phase3Title: '3. Security Transition',
-                phase3Text: 'Local security forces (police and military): If you stand with the people, form an X of people inside the circle. This shows local security supports a peaceful transition.',
+                phase3Text: 'Local security forces (police and military): If you stand with the people, on Phase 2 day form an X of people inside the circle.',
                 phase3Signal: 'SIGNAL: CIRCLE + X',
                 safetyTitle: 'Safety Notes',
-                safetyText: 'Place the sheet in an open area away from your home so it cannot be traced back to you. Phase 1 is anonymous and low-risk. Wait for evidence of widespread participation before moving to Phase 2. Never act alone — strength is in numbers.',
-                footer: 'This site works offline. Share via Bluetooth, SMS, or print.'
+                safetyText: 'Place the sheet in an open area away from your home. Do nothing until the date is announced — for now, just share this page. Strength is in numbers. Never act alone.',
+                footer: 'Works offline. Save and share via Bluetooth, SMS, or print.'
             }
         };
 
@@ -198,9 +238,17 @@
             return box;
         }
 
-        function makePhase(title, text, signal, dateLabel, datePending, dateValue) {
+        function makePhase(title, desc, text, signal, dateLabel, datePending, dateValue) {
             var div = el('div', 'phase');
             div.appendChild(el('h3', '', title));
+            if (desc) {
+                var d = el('p', '', desc);
+                d.style.fontWeight = 'bold';
+                d.style.fontStyle = 'italic';
+                d.style.marginBottom = '4px';
+                d.style.fontSize = '0.88rem';
+                div.appendChild(d);
+            }
             div.appendChild(el('p', '', text));
             div.appendChild(el('div', 'signal-box', signal));
             if (dateLabel) {
@@ -223,9 +271,15 @@
 
             content.appendChild(el('h1', '', t.title));
             content.appendChild(el('p', 'subtitle', t.subtitle));
-            content.appendChild(makePhase(t.phase1Title, t.phase1Text, t.phase1Signal, t.phase1DateLabel, t.phase1Pending, PHASE1_DATE));
-            content.appendChild(makePhase(t.phase2Title, t.phase2Text, t.phase2Signal, t.phase2DateLabel, t.phase2Pending, PHASE2_DATE));
-            content.appendChild(makePhase(t.phase3Title, t.phase3Text, t.phase3Signal));
+
+            var banner = el('div', 'timeline-banner');
+            banner.appendChild(el('div', 'tl-title', t.tlTitle));
+            banner.appendChild(el('div', 'tl-detail', t.tlDetail));
+            content.appendChild(banner);
+
+            content.appendChild(makePhase(t.phase1Title, t.phase1Desc, t.phase1Text, t.phase1Signal, t.phase1DateLabel, t.phase1Pending, PHASE1_DATE));
+            content.appendChild(makePhase(t.phase2Title, t.phase2Desc, t.phase2Text, t.phase2Signal, t.phase2DateLabel, t.phase2Pending, PHASE2_DATE));
+            content.appendChild(makePhase(t.phase3Title, null, t.phase3Text, t.phase3Signal));
 
             var safety = el('div', 'safety');
             safety.appendChild(el('h3', '', t.safetyTitle));
